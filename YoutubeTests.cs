@@ -1,19 +1,31 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using System.Collections.Generic;
-using TestItTests.Common;
 using TestItTests.Pages;
 
 namespace TestItTests
 {
-    class YoutubeTests : StartUp
+
+    class YoutubeTests : TestBase
     {
 
         [Test]
-        public void ПробныйТестЯху()
+        [Parallelizable]
+        public void ПоЗапросу_Test_It_ЮтубВыдаетКанал_Test_It()
         {
-            Assert.Pass();
+            var yt = new YoutubeMainPage();
+
+            yt.SearchField = "Test IT";
+            Assert.AreEqual(yt.SearchField, "Test IT");
+            yt.Search();
         }
 
+        [Test]
+        [Parallelizable]
+        public void НаКанале_Test_It_ОтфильтрованоПоДатеДобавленияОткрываетсяВидео7()
+        {
+            var yt = new YoutubeMainPage();
+
+            yt.SearchField = "Test IT";
+            yt.Search();
+        }
     }
 }

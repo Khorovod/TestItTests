@@ -1,18 +1,17 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
+using TestItTests.Drivers;
 
 namespace TestItTests.Pages
 {
     public abstract class BasePage
     {
         protected readonly IWebDriver _driver;
-        public BasePage(IWebDriver driver)
+        protected readonly WebDriverWait _wait;
+        public BasePage()
         {
-            _driver = driver;
+            _driver = SeleniumDriver.Current;
+            _wait = SeleniumDriver.CurrentWait;
         }
     }
 }

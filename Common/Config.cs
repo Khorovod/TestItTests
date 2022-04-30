@@ -10,8 +10,6 @@ namespace TestItTests.Common
 {
     public class Config
     {
-        public Config(){}
-
         string jsonStr = File.ReadAllText(Path.GetFullPath(@"../../../") + "/config.json");
         public MyConfig Configure => JsonConvert.DeserializeObject<MyConfig>(jsonStr);
     }
@@ -22,6 +20,7 @@ namespace TestItTests.Common
         public class DriverSettings
         {
             public string Browser {get; set;}
+            public int WaitSeconds {get; set;}
         }
 
     }
