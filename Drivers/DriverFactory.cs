@@ -3,10 +3,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestItTests.Common;
 
 namespace TestItTests.Drivers
@@ -24,6 +20,7 @@ namespace TestItTests.Drivers
             opt.PageLoadStrategy = PageLoadStrategy.Eager;
             return opt;
         }
+
         public IWebDriver Build()
         {
             IWebDriver result;
