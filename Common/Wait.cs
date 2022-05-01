@@ -19,7 +19,28 @@ namespace TestItTests.Common
                 throw;
             }
         }
+        public static By CssVisible(By by)
+        {
+            try {
+                SeleniumDriver.CurrentWait.Until(ExpectedConditions.ElementIsVisible(by));
+                return by;
+            }
+            catch (Exception) {
 
+                throw;
+            }
+        }
+        public static By AllElementsVPresence(By by)
+        {
+            try {
+                SeleniumDriver.CurrentWait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(by));
+                return by;
+            }
+            catch (Exception) {
+
+                throw;
+            }
+        }
         public static bool Until(Func<IWebDriver, bool> condition)
         {
             return SeleniumDriver.CurrentWait.Until(condition);

@@ -4,17 +4,16 @@ using TestItTests.Common;
 
 namespace TestItTests.Pages
 {
-    public class YoutubeMainPage : BasePage
+    public class YoutubeMainPage : YoutubeBasePage
     {
         public YoutubeMainPage() : base()
         {
             if (!_driver.Url.Contains("youtube")) 
             {
-                _driver.Navigate().GoToUrl("https://www.youtube.com/");
+                _driver.Navigate().GoToUrl("https://www.youtube.com/index");
             }
         }
 
-        bool LoadingCompleteEl => _driver.FindElement("yt-page-navigation-progress").GetAttribute("aria-valuenow").Contains("100");
         IWebElement SearchEl => _driver.FindElement("#search-input #search", Conditions.Exist);
         IWebElement SearchBtn => _driver.FindElement("#search-icon-legacy");
 
@@ -32,7 +31,7 @@ namespace TestItTests.Pages
         public YoutubeResultPage Search()
         {
             SearchBtn.Click();
-            Wait.Until(c => LoadingCompleteEl);
+            WaitLoading();
             return new YoutubeResultPage();
         }
     }

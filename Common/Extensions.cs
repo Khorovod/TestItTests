@@ -9,6 +9,7 @@ namespace TestItTests.Common
         None = 0,
         Exist = 1,
         Visible = 2,
+        AllElementsPresence = 3
     }
 
     public static class Extensions
@@ -17,20 +18,33 @@ namespace TestItTests.Common
         public static IWebElement FindElement(this IWebDriver driver, string selector, Conditions condition = Conditions.None)
         {
             var el = By.CssSelector(selector);
-            return driver.FindElement(el, condition);
+            return FindElement(driver, el, condition);
         }
-        public static IWebElement FindElement(this IWebDriver driver, By by, Conditions condition)
+
+        public static IWebElement FindElement(this IWebElement element, string selector, Conditions condition = Conditions.None)
+        {
+            var el = By.CssSelector(selector);
+            return FindElement(element, el, condition);
+        }
+        public static IWebElement FindElement(ISearchContext context, By by, Conditions condition)
         {
             Wait(by, condition);
-            return driver.FindElement(by);
+            return context.FindElement(by);
         }
-        public static IEnumerable<IWebElement> FindElements(this IWebDriver driver, string selector)
+        public static IEnumerable<IWebElement> FindElements(this IWebDriver driver, string selector, Conditions conditions = Conditions.None)
         {
-            return driver.FindElements(By.CssSelector(selector));
+            return FindElements(driver as ISearchContext, selector, conditions);
         }
-
-        static By Wait(string selector, Conditions condition) => Wait(By.CssSelector(selector), condition);
-
+        public static IEnumerable<IWebElement> FindElements(this IWebElement element, string selector, Conditions conditions = Conditions.None)
+        {
+            return FindElements(element as ISearchContext, selector, conditions);
+        }
+        static IEnumerable<IWebElement> FindElements(ISearchContext context, string selector, Conditions conditions)
+        {
+            var by = By.CssSelector(selector);
+            Wait(by, conditions);
+            return context.FindElements(by);
+        }
         static By Wait(By by, Conditions condition)
         {
             switch (condition) {
@@ -40,6 +54,10 @@ namespace TestItTests.Common
                     Common.Wait.CssExist(by);
                     break;
                 case Conditions.Visible:
+                    Common.Wait.CssVisible(by);
+                    break;
+                case Conditions.AllElementsPresence:
+                    Common.Wait.AllElementsVPresence(by);
                     break;
                 default:
                     break;

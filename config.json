@@ -1,6 +1,6 @@
 ﻿{
   "driver": {
     "browser": "chrome",
-    "waitSeconds": 5
+    "waitSeconds": 10
   }
 }

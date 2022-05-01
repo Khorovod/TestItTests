@@ -17,12 +17,19 @@ namespace TestItTests.Drivers
         string Browser => Driver.Browser;
         int Time => Driver.WaitSeconds;
 
+        ChromeOptions Options()
+        {
+            var opt = new ChromeOptions();
+            opt.AddArgument("--ignore-certificate-errors");
+            opt.PageLoadStrategy = PageLoadStrategy.Eager;
+            return opt;
+        }
         public IWebDriver Build()
         {
             IWebDriver result;
-
             result = Browser switch {
-                "chrome" => new ChromeDriver(Environment.CurrentDirectory, new ChromeOptions() { }),
+                //"chrome" => new ChromeDriver(Environment.CurrentDirectory, Options()),
+                "chrome" => new ChromeDriver(Environment.CurrentDirectory),
                 "firefox" => new FirefoxDriver(Environment.CurrentDirectory),
                 _ => throw new NotSupportedException($"what a browser '{Browser}'?")
             };
@@ -32,9 +39,15 @@ namespace TestItTests.Drivers
 
         public WebDriverWait GetWait(IWebDriver driver)
         {
-            return new WebDriverWait(driver, TimeSpan.FromSeconds(Time)) {
-                PollingInterval = TimeSpan.FromMilliseconds(100)
+            WebDriverWait wait;
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(Time)) {
+                PollingInterval = TimeSpan.FromMilliseconds(200)
             };
+            wait.IgnoreExceptionTypes(
+                typeof(NoSuchElementException),
+                typeof(ElementNotVisibleException),
+                typeof(StaleElementReferenceException));
+            return wait;
         }
     }
     
