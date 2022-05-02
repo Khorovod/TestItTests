@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using TestItTests.Drivers;
 
 namespace TestItTests
@@ -8,7 +9,7 @@ namespace TestItTests
         [OneTimeSetUp]
         public virtual void BeforeAll()
         {
-        
+            SeleniumDriver.CreateOutputDirectory();
         }
 
         [SetUp]
@@ -20,6 +21,11 @@ namespace TestItTests
         [TearDown]
         public virtual void TearDown()
         {
+            var outcome = TestContext.CurrentContext.Result.Outcome.Status;
+
+            if (outcome == TestStatus.Failed) {
+                SeleniumDriver.TakeScreenshot(TestContext.CurrentContext.Test.Name);
+            }
             SeleniumDriver.Quit();
         }
     }

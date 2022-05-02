@@ -10,7 +10,8 @@ namespace TestItTests.Common
 {
     public class Config
     {
-        string jsonStr = File.ReadAllText(Path.GetFullPath(@"../../../") + "/config.json");
+        public const string DIRECTORY = @"../../../";
+        string jsonStr = File.ReadAllText(Path.GetFullPath(DIRECTORY) + "/config.json");
         public MyConfig Configure => JsonConvert.DeserializeObject<MyConfig>(jsonStr);
     }
 

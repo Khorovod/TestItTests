@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -22,6 +23,23 @@ namespace TestItTests.Drivers
             var factory = new DriverFactory();
             _driver = factory.Build();
             _wait = factory.GetWait(_driver);
+        }
+        public static void TakeScreenshot(string imageName)
+        {
+            var ss = ((ITakesScreenshot)Current).GetScreenshot();
+            var ssFileName = Path.Combine(Config.DIRECTORY + "TestResults", imageName);
+            ss.SaveAsFile($"{ssFileName}.png", ScreenshotImageFormat.Png);
+        }
+
+        public static DirectoryInfo CreateOutputDirectory()
+        {
+            var testDirectory = Config.DIRECTORY + "TestResults";
+
+            if (Directory.Exists(testDirectory)) {
+                Directory.Delete(testDirectory, recursive: true);
+            }
+
+            return Directory.CreateDirectory(testDirectory);
         }
 
         public static void Quit()
