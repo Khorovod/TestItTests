@@ -30,16 +30,19 @@ namespace TestItTests.Pages.Models
         private readonly Func<IWebElement> _parent;
 
         IWebElement Parent => _parent.Invoke();
+
+        IWebElement TitleEl => Parent.FindElement(".ytd-channel-name#text-container", Conditions.Exist);
         public FoundChannelRow(Func<IWebElement> parent)
         {
             _parent = parent;
         }
 
-        public string Title => Parent.FindElement(".ytd-channel-name", Conditions.Exist).Text;
+        public string Title => TitleEl.Text;
 
         public YoutubeChannel Open()
         {
-            Parent.FindElement(".channel-link").Click();
+            //Parent.FindElement(".channel-link").Click();
+            TitleEl.Click();
             WaitLoading();
             return new YoutubeChannel();
         }

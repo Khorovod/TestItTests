@@ -57,7 +57,7 @@ namespace TestItTests.Common
                     Common.Wait.CssVisible(by);
                     break;
                 case Conditions.AllElementsPresence:
-                    Common.Wait.AllElementsVPresence(by);
+                    Common.Wait.AllElementsPresence(by);
                     break;
                 default:
                     break;

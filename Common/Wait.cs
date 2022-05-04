@@ -11,7 +11,7 @@ namespace TestItTests.Common
         public static By CssExist(By by)
         {
             try {
-                SeleniumDriver.CurrentWait.Until(ExpectedConditions.ElementExists(by));
+                Until(ExpectedConditions.ElementExists(by));
                 return by;
             }
             catch (Exception) {
@@ -22,7 +22,7 @@ namespace TestItTests.Common
         public static By CssVisible(By by)
         {
             try {
-                SeleniumDriver.CurrentWait.Until(ExpectedConditions.ElementIsVisible(by));
+                Until(ExpectedConditions.ElementIsVisible(by));
                 return by;
             }
             catch (Exception) {
@@ -30,7 +30,7 @@ namespace TestItTests.Common
                 throw;
             }
         }
-        public static By AllElementsVPresence(By by)
+        public static By AllElementsPresence(By by)
         {
             try {
                 SeleniumDriver.CurrentWait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(by));

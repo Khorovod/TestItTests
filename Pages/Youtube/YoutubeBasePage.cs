@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenQA.Selenium;
+using System;
 using TestItTests.Common;
 
 namespace TestItTests.Pages
@@ -14,6 +11,20 @@ namespace TestItTests.Pages
         protected void WaitLoading()
         {
             Wait.Until(c => LoadingCompleteEl == true);
+        }
+
+        protected void GoToYoutube()
+        {
+            if (!_driver.Url.Contains("youtube")) {
+                _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(12);
+                try {
+                    _driver.Navigate().GoToUrl("https://www.youtube.com");
+                }
+                catch (WebDriverTimeoutException) {
+
+                    Console.WriteLine("Все еще заблокирован гугл, не ждали завершения загрузки страницы");
+                }
+            }
         }
     }
 }

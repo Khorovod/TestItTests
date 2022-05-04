@@ -19,12 +19,12 @@ namespace TestItTests.Pages.Models
 
         public bool IsTabSelected(string tabName)
         {
-            var el = TabsEl.Single(t => t.Text.Contains(tabName.ToUpper()));
+            var el = TabsEl.Single(t => t.Text.ToUpper().Contains(tabName.ToUpper()));
             return el.GetAttribute("aria-selected").Contains("true");
         }
         public YoutubeTabWithVideo SelectTab(string tabName)
         {
-            TabsEl.Single(t => t.Text.Contains(tabName)).Click();
+            TabsEl.Single(t => t.Text.ToUpper().Contains(tabName.ToUpper())).Click();
             WaitLoading();
             return new YoutubeTabWithVideo();
         }

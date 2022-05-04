@@ -13,11 +13,18 @@ namespace TestItTests.Drivers
         string Browser => Driver.Browser;
         int Time => Driver.WaitSeconds;
 
+        readonly string _proxyAdress = "199.60.103.81:80";
+
+        //опять что-то заблокировали, превьюшки не качаются, ютуб не возвращает полностью загруженные страницы, а прокси завести не удалось:)
         ChromeOptions Options()
         {
             var opt = new ChromeOptions();
-            opt.AddArgument("--ignore-certificate-errors");
-            opt.PageLoadStrategy = PageLoadStrategy.Eager;
+            var proxy = new Proxy();
+            proxy.HttpProxy = _proxyAdress;
+            //proxy.SslProxy = _proxyAdress;
+            proxy.Kind = ProxyKind.Manual;
+            opt.Proxy = proxy;
+
             return opt;
         }
 

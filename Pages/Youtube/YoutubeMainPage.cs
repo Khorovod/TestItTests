@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
 using TestItTests.Common;
 
 namespace TestItTests.Pages
@@ -8,10 +7,7 @@ namespace TestItTests.Pages
     {
         public YoutubeMainPage() : base()
         {
-            if (!_driver.Url.Contains("youtube")) 
-            {
-                _driver.Navigate().GoToUrl("https://www.youtube.com/index");
-            }
+            GoToYoutube();
         }
 
         IWebElement SearchEl => _driver.FindElement("#search-input #search", Conditions.Exist);
