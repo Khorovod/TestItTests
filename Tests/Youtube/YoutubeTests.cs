@@ -19,7 +19,7 @@ namespace TestItTests
             Assert.AreEqual(yt.SearchField, query);
             var result = yt.Search();
 
-            Assert.IsTrue(result.Channels.Select(c => c.Title).Any(c => c.Equals(query)));
+            Assert.IsTrue(result.Channels.Select(c => c.Title).Any(c => c.Equals(query)), "No expected channel title in search results");
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace TestItTests
             var video = preview.Open();
 
             Assert.IsTrue(video.Title.Contains(title), $"Titles didnt match\r\nExpected '{title}'\r\nBut was '{video.Title}'");
-            Assert.IsTrue(video.IsVideo);
+            Assert.IsTrue(video.IsVideo, "There is no video");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TestItTests.Pages
         protected void GoToYoutube()
         {
             if (!_driver.Url.Contains("youtube")) {
-                _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(12);
+                _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(16);
                 try {
                     _driver.Navigate().GoToUrl("https://www.youtube.com");
                 }
